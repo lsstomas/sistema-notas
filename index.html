@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- CSS -->
+		<link rel="stylesheet" href="style.css" />
+
+		<!-- JS -->
+		<script src="script.js" defer></script>
+
+		<title>Sistema de Notas</title>
+	</head>
+
+	<body>
+		<header>
+			<h1>Sistema de Notas Escolares</h1>
+		</header>
+
+		<main>
+			<div id="cadastro">
+				<h2>Cadastrar Aluno</h2>
+				<div class="add-aluno">
+					<div>
+						<input class="i1" type="text" id="nomeAluno" placeholder="Nome do Aluno" />
+					</div>
+					<button onclick="adicionarAluno()">Adicionar Aluno</button>
+				</div>
+			</div>
+
+			<div id="info-alunos">
+				<!-- Aqui será renderizado as informações dos alunos -->
+			</div>
+		</main>
+	</body>
+</html>

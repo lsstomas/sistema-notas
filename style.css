@@ -1,0 +1,262 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+	letter-spacing: 1px;
+}
+
+:root {
+	--verde: #2ecc71;
+	--amarelo: #f1c40f;
+	--vermelho: #e74c3c;
+}
+
+.verde {
+	color: var(--verde);
+}
+
+.amarelo {
+	color: var(--amarelo);
+}
+
+.vermelho {
+	color: var(--vermelho);
+}
+
+header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100px;
+	background-color: black;
+	color: white;
+	font-weight: 100;
+}
+
+main {
+	padding: 30px 50px;
+}
+
+li {
+	list-style: none;
+}
+
+h4 {
+	font-weight: 700;
+	font-size: 20px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+#cadastro {
+	margin-bottom: 60px;
+	display: flex;
+	flex: 0 0 auto;
+	flex-direction: column;
+	gap: 10px;
+	justify-content: center;
+	align-items: center;
+}
+
+#info-alunos {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+	align-items: center;
+	padding: 15px;
+	margin-top: 20px;
+	gap: 120px;
+}
+
+.add-aluno {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.i1 {
+	padding: 5px 10px;
+	border: 0.5px solid rgba(0, 0, 0, 0.71);
+	border-radius: 10px;
+	font-size: 16px;
+	color: #555;
+	outline: none;
+	transition: all 0.3s ease;
+}
+
+.i1:focus {
+	box-shadow: rgba(169, 170, 172, 0.662) 2px 2px 20px 0px;
+}
+
+.i2 {
+	padding: 5px 10px;
+	border: 0.5px solid rgba(0, 0, 0, 0.71);
+	border-radius: 10px;
+	font-size: 16px;
+	color: #555;
+	outline: none;
+	transition: all 0.3s ease;
+	transform: scale(0.8);
+	width: 90px;
+	appearance: text;
+}
+
+.i2::placeholder {
+	text-align: center;
+}
+
+.i2:focus {
+	border: 0.5px solid rgb(0, 85, 255);
+	box-shadow: rgba(0, 128, 255, 0.349) 0px 0px 15px 0px;
+}
+
+button {
+	padding: 5px 15px;
+	margin: 10px;
+	border-radius: 50px;
+	background-color: white;
+	border: 0.5px solid rgba(0, 0, 0, 0.71);
+	box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+	text-transform: uppercase;
+	font-size: 15px;
+	transition: all 0.5s ease-in-out;
+	transform: scale(0.9);
+}
+
+button:hover {
+	letter-spacing: 2.2px;
+	background-color: hsl(211, 80%, 48%);
+	color: hsl(0, 0%, 100%);
+	box-shadow: rgb(24, 115, 220) 3px 3px 20px 0px;
+}
+
+button:active {
+	background-color: hsl(211, 80%, 48%);
+	color: hsl(0, 0%, 100%);
+	box-shadow: rgb(24, 115, 220) 3px 3px 25px 0px;
+	transform: scale(0.95);
+	transition: 100ms;
+}
+
+/* JS */
+.aluno-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: row wrap;
+	padding: 30px 50px 80px;
+	border: 1px solid rgba(0, 0, 0, 0.61);
+	border-radius: 15px;
+	gap: 50px;
+	background-color: rgb(232, 234, 238);
+}
+
+.aluno-nome {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: clamp(100px, 50%, 300px);
+	padding: 0px 20px;
+}
+
+.aluno-nome h3 {
+	font-weight: 800;
+	font-size: 45px;
+}
+
+.remover {
+	transition: all 0.3s ease-in-out;
+}
+
+.remover:hover {
+	background-color: hsl(0, 80%, 48%);
+	box-shadow: rgb(220, 24, 24) 3px 3px 20px 0px;
+}
+
+.aluno-notas {
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 120px;
+	transition: all 0.3s ease;
+}
+
+.disciplina {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	min-width: 400px;
+	padding: 30px;
+	border-radius: 15px;
+	border: 1px solid rgba(0, 0, 0, 0.61);
+	background-color: white;
+	transition: all 0.3s ease;
+}
+
+.disciplina:hover {
+	box-shadow: rgba(0, 0, 0, 0.181) 1px 1px 30px 2px;
+	min-width: 420px;
+}
+
+.disciplina h4 {
+	margin-bottom: 25px;
+	font-size: 24px;
+	letter-spacing: 3px;
+}
+
+.disciplina ul li {
+	margin-bottom: 5px;
+}
+
+.notas {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+	font-weight: 500;
+	font-size: 18px;
+}
+
+.notas input[type="number"] {
+	text-align: center;
+	font-weight: 400;
+}
+
+.bimestre {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.media, .status {
+	margin-top: 12px;
+}
+
+.media span, .status span {
+	font-weight: 500;
+}
+
+.media input[type="number"] {
+	text-align: center;
+	font-weight: 400;
+}
+
+.status input[type="number"] {
+	text-align: center;;
+	font-weight: 400;
+	width: 200px;
+}
