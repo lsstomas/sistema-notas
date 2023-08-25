@@ -70,6 +70,31 @@ function criarListaNotas() {
 	return disciplinasHtml;
 }
 
+// Definir classe de cada disciplina
+function definirClasse(disciplina) {
+	let classe = "";
+
+	switch (disciplina) {
+		case "Matemática":
+			classe = "matematica";
+			break;
+		case "Português":
+			classe = "portugues";
+			break;
+		case "Física":
+			classe = "fisica";
+			break;
+		case "Biologia":
+			classe = "biologia";
+			break;
+		default:
+			classe = "quimica";
+			break;
+	}
+
+	return classe;
+}
+
 // Cria as notas de cada bimestre por disciplina
 function criarNotaDisciplina(disciplina) {
 	let notasBimestreHtml = "";
@@ -95,24 +120,81 @@ function criarNotaDisciplina(disciplina) {
 	}
 
 	return `
-        <div class="disciplina">
+        <div class="disciplina ${definirClasse(disciplina)}">
             <h4>${disciplina}</h4>
             <ul>${notasBimestreHtml}</ul>
-			<div class="media">
-				<span>Média: </span>
-				<input type="number" class="i2" id="${disciplina}-media" disabled>
-			</div>
-			<div class="status">
-				<span>Status: </span>
-				<input type="text" class="i2" id="${disciplina}-status" disabled>
-			</div>
+			<div class="media">${criarMediaDisciplina(disciplina)}</div>
+			<div class="status">${criarStatusDisciplina(disciplina)}</div>
         </div>`;
+}
+
+// Cria a média de cada disciplina
+function criarMediaDisciplina(disciplina) {
+	let mediaHtml = "";
+
+	return `
+	<span>Média: </span>
+	<input type="number" class="i2" id="${disciplina}-media" disabled>`;
+}
+
+// Cria o status do aluno em cada disciplina
+function criarStatusDisciplina(disciplina) {
+	let statusHtml = "";
+
+	return `
+	<span>Status: </span>
+	<input type="text" class="i2 input-status" id="${disciplina}-status" disabled>`;
 }
 
 // Validar as notas de acordo com cada bimestre, para limitar o input
 function validarNota(input, bimestre) {
-	let maxNota = bimestre * 10;
+	const maxValue = bimestre * 10;
 
-	if (input.value < 0) input.value = 0;
-	if (input.value > maxNota) input.value = maxNota;
+	if (input.value > maxValue) {
+		alert(`A nota máxima para o ${bimestre}° bimestre é ${maxValue}`);
+		input.value = maxValue;
+	} else if (input.value < 0) {
+		alert("A nota mínima é 0");
+		input.value = 0;
+	}
+}
+
+// Atualizar a média da disciplina especificada
+function atualizarMedia(disciplina) {
+	let inputsNotas = document.querySelectorAll(`.${definirClasse(disciplina)} .notas input.i2`);
+	let total = 0;
+	let count = 0;
+
+	inputsNotas.forEach((input) => {
+		let valor = parseFloat(input.value);
+
+		if (!isNaN(valor)) {
+			total += valor;
+			count++;
+		}
+	});
+
+	let media = count === 0 ? 0 : total;
+
+	let mediaInput = document.getElementById(`${disciplina}-media`);
+	mediaInput.value = media.toFixed(2); // Manter 2 casas decimais para a média
+
+	// Atualizar o status do aluno para essa disciplina
+	atualizarStatus(disciplina, media);
+}
+
+// Atualizar o status da disciplina especificada com base na média fornecida
+function atualizarStatus(disciplina, media) {
+	let statusInput = document.getElementById(`${disciplina}-status`);
+
+	if (media >= 60) {
+		statusInput.value = "Aprovado";
+		statusInput.style.boxShadow = "0px 0px 15px 0px var(--verde)";
+	} else if (media >= 40 && media < 60) {
+		statusInput.value = "Recuperação";
+		statusInput.style.boxShadow = "0px 0px 15px 0px var(--amarelo)";
+	} else {
+		statusInput.value = "Reprovado";
+		statusInput.style.boxShadow = "0px 0px 15px 0px var(--vermelho)";
+	}
 }

@@ -9,9 +9,9 @@
 }
 
 :root {
-	--verde: #2ecc71;
-	--amarelo: #f1c40f;
-	--vermelho: #e74c3c;
+	--verde: #2ecc708f;
+	--amarelo: #f1c40f6d;
+	--vermelho: #e74d3ca0;
 }
 
 .verde {
@@ -59,7 +59,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 #cadastro {
-	margin-bottom: 60px;
+	margin-bottom: 40px;
 	display: flex;
 	flex: 0 0 auto;
 	flex-direction: column;
@@ -242,11 +242,20 @@ button:active {
 	justify-content: center;
 }
 
-.media, .status {
+.media,
+.status {
 	margin-top: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
 }
 
-.media span, .status span {
+.media {
+	gap: 10px;
+}
+
+.media span,
+.status span {
 	font-weight: 500;
 }
 
@@ -256,7 +265,11 @@ button:active {
 }
 
 .status input[type="number"] {
-	text-align: center;;
+	text-align: center;
 	font-weight: 400;
-	width: 200px;
+}
+
+.input-status {
+	width: 170px;
+	text-align: center;
 }
