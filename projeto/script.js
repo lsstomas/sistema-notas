@@ -151,10 +151,8 @@ function validarNota(input, bimestre) {
 	const maxValue = bimestre * 10;
 
 	if (input.value > maxValue) {
-		alert(`A nota máxima para o ${bimestre}° bimestre é ${maxValue}`);
 		input.value = maxValue;
 	} else if (input.value < 0) {
-		alert("A nota mínima é 0");
 		input.value = 0;
 	}
 }
@@ -163,24 +161,20 @@ function validarNota(input, bimestre) {
 function atualizarMedia(disciplina) {
 	let inputsNotas = document.querySelectorAll(`.${definirClasse(disciplina)} .notas input.i2`);
 	let total = 0;
-	let count = 0;
 
 	inputsNotas.forEach((input) => {
 		let valor = parseFloat(input.value);
 
 		if (!isNaN(valor)) {
 			total += valor;
-			count++;
 		}
 	});
 
-	let media = count === 0 ? 0 : total;
-
 	let mediaInput = document.getElementById(`${disciplina}-media`);
-	mediaInput.value = media.toFixed(2); // Manter 2 casas decimais para a média
+	mediaInput.value = total.toFixed(2); // Manter 2 casas decimais para a média
 
 	// Atualizar o status do aluno para essa disciplina
-	atualizarStatus(disciplina, media);
+	atualizarStatus(disciplina, total);
 }
 
 // Atualizar o status da disciplina especificada com base na média fornecida
