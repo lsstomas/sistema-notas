@@ -41,6 +41,35 @@ main {
 	padding: 30px 50px;
 }
 
+button {
+	padding: 5px 15px;
+	margin: 10px;
+	border-radius: 50px;
+	background-color: white;
+	border: 0.5px solid rgba(0, 0, 0, 0.71);
+	box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+	text-transform: uppercase;
+	font-size: 15px;
+	transition: all 0.5s ease-in-out;
+	transform: scale(0.9);
+}
+
+button:hover {
+	letter-spacing: 2.2px;
+	background-color: hsl(211, 80%, 48%);
+	color: hsl(0, 0%, 100%);
+	box-shadow: rgb(24, 115, 220) 3px 3px 20px 0px;
+	cursor: pointer;
+}
+
+button:active {
+	background-color: hsl(211, 80%, 48%);
+	color: hsl(0, 0%, 100%);
+	box-shadow: rgb(24, 115, 220) 3px 3px 25px 0px;
+	transform: scale(0.93);
+	transition: 100ms;
+}
+
 li {
 	list-style: none;
 }
@@ -60,7 +89,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 #cadastro {
 	margin-top: 20px;
-	margin-bottom: 40px;
+	margin-bottom: 35px;
 	display: flex;
 	flex: 0 0 auto;
 	flex-direction: column;
@@ -69,7 +98,47 @@ input[type="number"]::-webkit-outer-spin-button {
 	align-items: center;
 }
 
-#info-alunos {
+.popup {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	width: clamp(200px, 50%, 30px);
+	height: clamp(200px, 50%, 300px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 100;
+}
+
+#popup {
+	display: none;
+}
+
+#popup a {
+	width: 30px;
+	height: 30px;
+	border-radius: 2px 14px 2px 2px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: 1px solid rgba(0, 0, 0, 0.61);
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	background-color: black;
+	transition: all 0.2s ease;
+}
+
+#popup a:hover {
+	background-color: red;
+}
+
+#infoAlunos {
 	display: flex;
 	justify-content: space-around;
 	flex-wrap: wrap;
@@ -79,36 +148,20 @@ input[type="number"]::-webkit-outer-spin-button {
 	gap: 120px;
 }
 
-.add-aluno {
+.addAluno {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
-.popup {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	padding: 20px;
-	border: 1px solid #ccc;
-	background-color: white;
-	width: 300px;
-	max-height: 300px;
-	overflow-y: auto;
-	display: none;
-	z-index: 100;
+#btnVerAlunos:hover {
+	background-color: hsl(282, 80%, 48%);
+	box-shadow: rgb(158, 24, 220) 3px 3px 20px 0px;
 }
 
-.overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
-	display: none;
-	z-index: 99;
+#btnVerAlunos:active {
+	background-color: hsl(282, 80%, 48%);
+	box-shadow: rgb(158, 24, 220) 3px 3px 25px 0px;
 }
 
 .i1 {
@@ -145,34 +198,6 @@ input[type="number"]::-webkit-outer-spin-button {
 .i2:focus {
 	border: 0.5px solid rgb(0, 85, 255);
 	box-shadow: rgba(0, 128, 255, 0.349) 0px 0px 15px 0px;
-}
-
-button {
-	padding: 5px 15px;
-	margin: 10px;
-	border-radius: 50px;
-	background-color: white;
-	border: 0.5px solid rgba(0, 0, 0, 0.71);
-	box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
-	text-transform: uppercase;
-	font-size: 15px;
-	transition: all 0.5s ease-in-out;
-	transform: scale(0.9);
-}
-
-button:hover {
-	letter-spacing: 2.2px;
-	background-color: hsl(211, 80%, 48%);
-	color: hsl(0, 0%, 100%);
-	box-shadow: rgb(24, 115, 220) 3px 3px 20px 0px;
-}
-
-button:active {
-	background-color: hsl(211, 80%, 48%);
-	color: hsl(0, 0%, 100%);
-	box-shadow: rgb(24, 115, 220) 3px 3px 25px 0px;
-	transform: scale(0.93);
-	transition: 100ms;
 }
 
 /* JS */
@@ -299,4 +324,8 @@ button:active {
 .input-status {
 	width: 170px;
 	text-align: center;
+}
+
+.template {
+	display: none;
 }

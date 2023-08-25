@@ -1,4 +1,8 @@
 let alunos = [];
+const disciplinas = ["Matemática", "Português", "Física", "Biologia", "Química", "Programação"];
+var aprovados = [];
+var reprovados = [];
+var recuperados = [];
 
 // Adicionar aluno
 function adicionarAluno() {
@@ -11,6 +15,8 @@ function adicionarAluno() {
 		nomeInput.value = "";
 		renderizarAlunos();
 	}
+
+	mostrarBtn();
 }
 
 // Adiciona o aluno se eu pressionar "Enter"
@@ -20,6 +26,12 @@ document.getElementById("nomeAluno").addEventListener("keydown", (event) => {
 	}
 });
 
+// Mostrar o botão para ver a lista de alunos
+const mostrarBtn = () => (document.getElementById("btnVerAlunos").style.display = "block");
+
+// Esconder o botão para ver a lista de alunos
+const esconderBtn = () => (document.getElementById("btnVerAlunos").style.display = "none");
+
 // Remover aluno
 function removerAluno(nome) {
 	const index = alunos.indexOf(nome);
@@ -27,6 +39,10 @@ function removerAluno(nome) {
 		alunos.splice(index, 1);
 		console.log(`Removendo aluno: ${nome}`);
 		renderizarAlunos();
+	}
+
+	if (alunos.length == 0) {
+		esconderBtn();
 	}
 }
 
@@ -46,7 +62,7 @@ function renderizarAlunos() {
 // Cria um container com as informações do aluno
 function criarContainerAluno(nome) {
 	return `
-	<div class="aluno-container">
+	<div class="aluno-container" id="aluno-${alunos.indexOf(nome)}">
 		<div class="aluno-nome">
 			<h3>${nome}</h3>
 			<button class="remover" onclick="removerAluno('${nome}')">Remover</button>
@@ -60,7 +76,6 @@ function criarContainerAluno(nome) {
 
 // Cria a lista de notas para todas disciplina
 function criarListaNotas() {
-	const disciplinas = ["Matemática", "Português", "Física", "Biologia", "Química"];
 	let disciplinasHtml = "";
 
 	for (let i = 0; i < disciplinas.length; i++) {
@@ -87,8 +102,11 @@ function definirClasse(disciplina) {
 		case "Biologia":
 			classe = "biologia";
 			break;
-		default:
+		case "Química":
 			classe = "quimica";
+			break;
+		default:
+			classe = "programacao";
 			break;
 	}
 
@@ -105,7 +123,9 @@ function criarNotaDisciplina(disciplina) {
             <li>
 				<div class="notas">
             		<div class="bimestre">${i}°&nbsp;&nbsp;Bimestre (${i * 10}pt):</div>
-    	        	<input type="number" class="i2" placeholder="Nota" oninput="validarNota(this, ${i}); atualizarMedia('${disciplina}')">
+    	        	<input type="number" class="i2" placeholder="Nota" oninput="validarNota(this, ${i}); atualizarMedia('${disciplina}'; ${alunos.indexOf(
+				nome
+			)})">
 				</div>
         	</li>`;
 		} else {
@@ -113,37 +133,35 @@ function criarNotaDisciplina(disciplina) {
             <li>
 				<div class="notas">
             		<div class="bimestre">${i}° Bimestre (${i * 10}pt):</div>
-    	        	<input type="number" class="i2" placeholder="Nota" oninput="validarNota(this, ${i}); atualizarMedia('${disciplina}')">
+    	        	<input type="number" class="i2" placeholder="Nota" oninput="validarNota(this, ${i}); atualizarMedia('${disciplina}'; ${alunos.indexOf(
+				nome
+			)})">
 				</div>
         	</li>`;
 		}
 	}
 
 	return `
-        <div class="disciplina ${definirClasse(disciplina)}">
-            <h4>${disciplina}</h4>
-            <ul>${notasBimestreHtml}</ul>
-			<div class="media">${criarMediaDisciplina(disciplina)}</div>
-			<div class="status">${criarStatusDisciplina(disciplina)}</div>
-        </div>`;
+    	<div class="disciplina ${definirClasse(disciplina)}">
+       		<h4>${disciplina}</h4>
+        	<ul>${notasBimestreHtml}</ul>
+        	<div class="media">${criarMediaDisciplina(disciplina, alunos.indexOf(nome))}</div>
+        	<div class="status">${criarStatusDisciplina(disciplina, alunos.indexOf(nome))}</div>
+    	</div>`;
 }
 
 // Cria a média de cada disciplina
-function criarMediaDisciplina(disciplina) {
-	let mediaHtml = "";
-
+function criarMediaDisciplina(disciplina, alunoIndex) {
 	return `
-	<span>Média: </span>
-	<input type="number" class="i2" id="${disciplina}-media" disabled>`;
+	<span>Total: </span>
+	<input type="number" class="i2" id="${alunoIndex}-${disciplina}-media" disabled>`;
 }
 
 // Cria o status do aluno em cada disciplina
-function criarStatusDisciplina(disciplina) {
-	let statusHtml = "";
-
+function criarMediaDisciplina(disciplina, alunoIndex) {
 	return `
-	<span>Status: </span>
-	<input type="text" class="i2 input-status" id="${disciplina}-status" disabled>`;
+	<span>Total: </span>
+	<input type="number" class="i2" id="${alunoIndex}-${disciplina}-media" disabled>`;
 }
 
 // Validar as notas de acordo com cada bimestre, para limitar o input
@@ -158,28 +176,27 @@ function validarNota(input, bimestre) {
 }
 
 // Atualizar a média da disciplina especificada
-function atualizarMedia(disciplina) {
+function atualizarMedia(disciplina, alunoIndex) {
 	let inputsNotas = document.querySelectorAll(`.${definirClasse(disciplina)} .notas input.i2`);
 	let total = 0;
 
 	inputsNotas.forEach((input) => {
 		let valor = parseFloat(input.value);
-
 		if (!isNaN(valor)) {
 			total += valor;
 		}
 	});
 
-	let mediaInput = document.getElementById(`${disciplina}-media`);
-	mediaInput.value = total.toFixed(2); // Manter 2 casas decimais para a média
+	let mediaInput = document.getElementById(`${alunoIndex}-${disciplina}-media`);
+	mediaInput.value = total.toFixed(2);
 
 	// Atualizar o status do aluno para essa disciplina
-	atualizarStatus(disciplina, total);
+	atualizarStatus(disciplina, total, alunoIndex);
 }
 
 // Atualizar o status da disciplina especificada com base na média fornecida
-function atualizarStatus(disciplina, media) {
-	let statusInput = document.getElementById(`${disciplina}-status`);
+function atualizarStatus(disciplina, media, alunoIndex) {
+	let statusInput = document.getElementById(`${alunoIndex}-${disciplina}-status`);
 
 	if (media >= 60) {
 		statusInput.value = "Aprovado";
@@ -192,3 +209,10 @@ function atualizarStatus(disciplina, media) {
 		statusInput.style.boxShadow = "0px 0px 15px 0px var(--vermelho)";
 	}
 }
+
+const abrir = () => {
+	document.getElementById("popup").style.display = "block";
+};
+const fechar = () => {
+	document.getElementById("popup").style.display = "none";
+};

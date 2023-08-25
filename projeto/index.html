@@ -21,16 +21,31 @@
 		<main>
 			<div id="cadastro">
 				<h2>Cadastrar Aluno</h2>
-				<div class="add-aluno">
+				<div class="addAluno">
 					<div>
 						<input class="i1" type="text" id="nomeAluno" placeholder="Nome do Aluno" />
 					</div>
 					<button onclick="adicionarAluno()">Adicionar Aluno</button>
 				</div>
+				<div class="lista-alunos">
+					<button id="btnVerAlunos" style="display: none" onclick="abrir()">Ver lista de alunos</button>
+				</div>
+				<div id="popup" class="popup disciplina">
+					<a href="#" onclick="fechar()">X</a>
+					<h4></h4>
+					<ul></ul>
+				</div>
 			</div>
 
-			<div id="info-alunos">
-				<!-- Aqui será renderizado as informações dos alunos -->
+			<div id="infoAlunos">
+				<!-- Template do Aluno (inicialmente escondido) -->
+				<div class="aluno-container template">
+					<div class="aluno-nome">
+						<h3 class="nome-placeholder"></h3>
+						<button class="remover">Remover</button>
+					</div>
+					<!-- ... estrutura de notas, médias, etc. -->
+				</div>
 			</div>
 		</main>
 	</body>
