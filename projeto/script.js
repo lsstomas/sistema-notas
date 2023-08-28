@@ -180,7 +180,7 @@ function atualizarMedia(disciplina) {
 // Atualizar o status da disciplina especificada com base na média fornecida
 function atualizarStatus(disciplina, media) {
 	let statusInput = document.getElementById(`${disciplina}-status`);
-	
+
 	if (media >= 60) {
 		statusInput.value = "Aprovado";
 		statusInput.style.boxShadow = "0px 0px 15px 0px var(--verde)";
